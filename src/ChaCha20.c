@@ -18,7 +18,7 @@ void inner_block(uint32 state[])
     quarterRound(state+2, state+7, state+8,  state+13);
     quarterRound(state+3, state+4, state+9,  state+14);
 }
-
+// Sets up the state matrix from the key, nonce and block counter, hashes it and copies the 64-byte result into the output buffer.
 void chacha20_block(byte* key, uint32 counter, byte* nonce, byte* output)
 {
     // setting up the initial state
@@ -50,4 +50,12 @@ void chacha20_block(byte* key, uint32 counter, byte* nonce, byte* output)
             state[i] >>= 8;
         }
     }
+}
+// Encrypts the n-byte input buffer by XORing it with the ChaCha20 keystream. If n>64, the function will only encrypt 64 bytes
+void chacha20_cipher(byte key[KEY_SIZE], uint32 counter, byte nonce[NONCE_SIZE], byte input[STATE_BUFFER_SIZE], uint32 n)
+{
+    byte stream[STATE_BUFFER_SIZE];
+    chacha20_block(key, counter, nonce, stream);
+    for(int i=0; i < (n<STATE_BUFFER_SIZE? n:STATE_BUFFER_SIZE); i++)
+        input[i] ^= stream[i];
 }
