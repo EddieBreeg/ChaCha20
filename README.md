@@ -7,7 +7,7 @@ To get the full details of both implementations, follow these links:
 
 ## Validity of the implementation
 
-Both [test.c](../C/tests/test.c) and [test.cpp](tests/test.cpp) are here to check the validity of this implementation, according to the [RFC 7539](https://tools.ietf.org/html/rfc7539).\
+Both [test.c](C/tests/test.c) and [test.cpp](C++/tests/test.cpp) are here to check the validity of this implementation, according to the [RFC 7539](https://tools.ietf.org/html/rfc7539).\
 These two programs run the ChaCha20 algorithm using the same parameters as used in the example section [2.4.2](https://tools.ietf.org/html/rfc7539#section-2.4.2) of said RFC:
 - key=00:01:02:03:04:05:06:07:08:09:0a:0b:0c:0d:0e:0f:10:11:12:13:14:15:16:17:18:19:1a:1b:1c:1d:1e:1f
 - nonce=(00:00:00:00:00:00:00:4a:00:00:00:00)
