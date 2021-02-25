@@ -23,7 +23,7 @@ Sets up the state matrix from the key, nonce and block counter, hashes it and co
 void chacha20_cipher(byte key[KEY_SIZE], uint32 counter, byte nonce[NONCE_SIZE], 
     byte input[STATE_BUFFER_SIZE], uint32 n)
 ```
-Encrypts the n-byte input buffer by XORing it with the ChaCha20 keystream. If n>64, the function will only encrypt 64 bytes.
+Encrypts the n-byte input buffer by XORing it with the ChaCha20 keystream.
 
 ## Example
 This code takes a file path as an argument, and encrypts it using a test key and a test nonce.\
