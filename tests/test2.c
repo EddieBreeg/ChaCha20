@@ -14,8 +14,8 @@ int main(int argc, char const *argv[])
     byte key[KEY_SIZE];
     for (int i = 0; i < 32; i++)
         key[i] = i;
-    byte nonce[NONCE_SIZE] = {0,0,0,0,0,0,0,0x4a,0,0,0,0};
-    uint32 counter = 1;
+    byte nonce[NONCE_SIZE] = {0x79, 0x65, 0x65, 0x65, 0x65, 0x65, 0x65, 0x65, 0x65, 0x65, 0x65, 0x74};
+    uint32 counter = 0;
     byte buffer[STATE_BUFFER_SIZE];
     size_t n;
     do
