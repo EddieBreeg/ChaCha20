@@ -23,8 +23,7 @@ public:
     void block(void);
     // Hashes the internal state buffer using the provided block counter
     void block(uint32 blockCounter);
-    /* Hashes the internal state, performs the XOR with the n-byte data array and increments blockCounter
-    If n>64, the function will only XOR 64 bytes */
+    // Hashes the internal state, performs the XOR with the n-byte data array and increments blockCounter
     void chacha20_cipher(byte data[], uint32 n);
     // Returns _output[i]
     const uint32 operator[](int i);

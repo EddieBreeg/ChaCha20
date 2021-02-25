@@ -33,8 +33,7 @@ Hashes the internal state of the object. The result is a 64-byte buffer. If a co
 ```C++
 void chacha20_cipher(byte data[], uint32 n)
 ```
-First hashes the internal state, then performs a XOR between the generated block and the n-byte data buffer, and finally increments the blockCounter value.\
-If n>64, only 64 bytes will be changed.
+First hashes the internal state, then performs a XOR between the generated block and the n-byte data buffer, and finally increments the blockCounter value.
 ```C++
 const uint32 operator[](int i)
 ```

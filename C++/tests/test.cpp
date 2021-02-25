@@ -33,11 +33,8 @@ int main(int argc, char const *argv[])
     };
 
     uint32 l = strlen((char*)data);
-    for(size_t i =0; i<l; i+=64)
-    {
-        chacha20.chacha20_cipher(data+i, l-i);
-        chacha20.blockCounter++;
-    }
+    chacha20.chacha20_cipher(data, l);
+
     for(size_t i=0; i< l; i++)
     {
         printf("%02x ", data[i]);
