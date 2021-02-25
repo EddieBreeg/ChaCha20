@@ -1,16 +1,9 @@
 #include "../src/ChaCha20.h"
 #include <stdio.h>
 
-void printMatrix(ChaCha20 chacha20)
-{
-    for(int i=0; i<4;i++)
-    {
-        for(int j=0; j<4;j++)
-            printf("%08x\t", chacha20[4*i+j]);
-        printf("\n");
-    }
-}
-
+/* This code performs the example provided in section 2.4.2 of the RFC 7539.
+* For full detail about this example follow this link: 
+* https://tools.ietf.org/html/rfc7539#section-2.4.2 */
 int main(int argc, char const *argv[])
 {
     byte key[32];

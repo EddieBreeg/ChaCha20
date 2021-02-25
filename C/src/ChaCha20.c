@@ -52,10 +52,16 @@ void chacha20_block(byte* key, uint32 counter, byte* nonce, byte* output)
     }
 }
 // Encrypts the n-byte input buffer by XORing it with the ChaCha20 keystream. If n>64, the function will only encrypt 64 bytes
-void chacha20_cipher(byte key[KEY_SIZE], uint32 counter, byte nonce[NONCE_SIZE], byte input[STATE_BUFFER_SIZE], uint32 n)
+void chacha20_cipher(byte key[KEY_SIZE], uint32 counter, byte nonce[NONCE_SIZE], byte input[], uint32 n)
 {
     byte stream[STATE_BUFFER_SIZE];
-    chacha20_block(key, counter, nonce, stream);
-    for(size_t i=0; i < (n<STATE_BUFFER_SIZE? n:STATE_BUFFER_SIZE); i++)
-        input[i] ^= stream[i];
+    size_t L = n;
+    for(size_t i=0; i<n; i+=64)
+    {
+        chacha20_block(key, counter, nonce, stream);
+        size_t l = L<64? L:64;
+        for (size_t j = 0; j < l; j++)
+            input[i+j] ^= stream[j];
+        L -= l; counter++;     
+    }
 }
