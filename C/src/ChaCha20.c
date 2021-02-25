@@ -56,6 +56,6 @@ void chacha20_cipher(byte key[KEY_SIZE], uint32 counter, byte nonce[NONCE_SIZE],
 {
     byte stream[STATE_BUFFER_SIZE];
     chacha20_block(key, counter, nonce, stream);
-    for(int i=0; i < (n<STATE_BUFFER_SIZE? n:STATE_BUFFER_SIZE); i++)
+    for(size_t i=0; i < (n<STATE_BUFFER_SIZE? n:STATE_BUFFER_SIZE); i++)
         input[i] ^= stream[i];
 }
