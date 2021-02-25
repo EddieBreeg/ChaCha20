@@ -69,4 +69,5 @@ void ChaCha20::chacha20_cipher(byte data[], uint32 n)
     block();
     for(size_t i=0; i< (n<STATE_BUFFER_SIZE?n:STATE_BUFFER_SIZE); i++)
         data[i] ^= _output[i];
+    blockCounter++;
 }

@@ -1,11 +1,8 @@
-# ChaCha20
+# ChaCha20 C
 A C implementation of the ChaCha20 encryption scheme
 
-## ChaCHa20.h
 
-Contains all the required macros and function definitions.
-
-### Macros and types
+##  Macros and types
 
 - `KEY_SIZE`: The ChaCha20 key size, in bytes := 32
 - `NONCE_SIZE`: The ChaCha20 nonce size in bytes := 12
@@ -15,7 +12,7 @@ Contains all the required macros and function definitions.
 - `R(x, n)`: The rotation of x (`uint32`) by n bits to the left
 - `LITTLE_ENDIAN(b)`: The conversion of b (`byte[4]`) to a little endian `uint32` integer
 
-### Functions
+## Functions
 
 ```C
 void chacha20_block(byte* key, uint32 counter, byte* nonce, byte* output)

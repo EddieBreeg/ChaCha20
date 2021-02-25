@@ -14,15 +14,25 @@ typedef unsigned char byte;
 
 class ChaCha20
 {
-private:
-    uint32* _initState;
-    byte* _output;
 public:
+    // The index of the block to generate in the key-stream
     uint32 blockCounter;
+    // Inits the ChaCha20 object from the key, the nonce and the initial block counter
     ChaCha20(byte* key, byte* nonce, uint32 blockCounter = 0);
-    const uint32 operator[](int i);
+    // Hashes the internal state buffer
     void block(void);
+    // Hashes the internal state buffer using the provided block counter
     void block(uint32 blockCounter);
+    /* Hashes the internal state, performs the XOR with the n-byte data array and increments blockCounter
+    If n>64, the function will only XOR 64 bytes */
     void chacha20_cipher(byte data[], uint32 n);
+    // Returns _output[i]
+    const uint32 operator[](int i);
+    // Destroys the ChaCha20 object
     ~ChaCha20();
+private:
+    // The initial state matrix
+    uint32* _initState;
+    // The output of the block function
+    byte* _output;
 };
