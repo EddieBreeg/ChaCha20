@@ -1,5 +1,8 @@
 #include "../src/ChaCha20.h"
-#include <stdio.h>
+#include <iostream>
+
+#define XCHARS "0123456789abcdef"
+#define HEX(b) XCHARS[(b>>4) & 15] << XCHARS[b & 15]
 
 /* This code performs the example provided in section 2.4.2 of the RFC 7539.
 * For full detail about this example follow this link: 
@@ -30,13 +33,14 @@ int main(int argc, char const *argv[])
 
     for(size_t i=0; i< l; i++)
     {
-        printf("%02x ", data[i]);
+        std::cout << HEX(data[i]) << " ";
         if(data[i] != expected[i])
         {
-            printf("\nError at position %i: expected %02x, got %02x. Exiting\n", i, expected[i], data[i]);
+            std::cout << "\nError at position " << i << ": expected " << HEX(expected[i]) <<
+                ", got " << HEX((data[i])) << ".\n";
             exit(EXIT_FAILURE);
         }
     }
-    printf("\nSuccess!\n");
+    std::cout << "\nSuccess!" << std::endl;
     return 0;
 }

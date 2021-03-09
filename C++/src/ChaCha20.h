@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <iostream>
 
 #define KEY_SIZE 32
 #define NONCE_SIZE 12
@@ -27,6 +28,8 @@ public:
     void chacha20_cipher(byte data[], uint32 n);
     // Returns _output[i]
     const uint32 operator[](int i);
+    // print the output buffer to the console
+    friend std::ostream& operator<<(std::ostream& s, const ChaCha20& chacha20);
     // Destroys the ChaCha20 object
     ~ChaCha20();
 private:

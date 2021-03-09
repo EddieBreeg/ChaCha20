@@ -1,5 +1,8 @@
 #include "ChaCha20.h"
 
+#define XCHARS "0123456789abcdef"
+#define HEX(b) XCHARS[(b>>4) & 15] << XCHARS[b & 15]
+
 ChaCha20::ChaCha20(byte* key, byte* nonce, uint32 blockCounter)
 {
     this->blockCounter = blockCounter;
@@ -75,4 +78,11 @@ void ChaCha20::chacha20_cipher(byte data[], uint32 n)
             data[i+j] ^= _output[j];
         L -= l; blockCounter++;     
     }
+}
+std::ostream& operator<<(std::ostream& s, const ChaCha20& chacha20)
+{
+    for(int i = 0; i<31; i++)
+        s << HEX(chacha20._output[i]) << ":";
+    s << HEX(chacha20._output[31]);
+    return s;
 }
