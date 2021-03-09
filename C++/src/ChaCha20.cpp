@@ -29,8 +29,8 @@ void quarterRound(uint32& a, uint32& b, uint32& c, uint32& d)
 {
     a += b; d ^= a; d = R(d, 16);
     c += d; b ^= c; b = R(b, 12);
-    a += b; d ^= a; d = R(d, 8);
-    c += d; b ^= c; b = R(b, 7);
+    a += b; d ^= a; d = R(d,  8);
+    c += d; b ^= c; b = R(b,  7);
 }
 void innerBlock(uint32 state[16])
 {
@@ -76,13 +76,13 @@ void ChaCha20::chacha20_cipher(byte data[], uint32 n)
         size_t l = L<64? L:64;
         for (size_t j = 0; j < l; j++)
             data[i+j] ^= _output[j];
-        L -= l; blockCounter++;     
+        L -= l; blockCounter++;
     }
 }
 std::ostream& operator<<(std::ostream& s, const ChaCha20& chacha20)
 {
-    for(int i = 0; i<31; i++)
+    for(int i = 0; i<STATE_BUFFER_SIZE-1; i++)
         s << HEX(chacha20._output[i]) << ":";
-    s << HEX(chacha20._output[31]);
+    s << HEX(chacha20._output[STATE_BUFFER_SIZE-1]);
     return s;
 }

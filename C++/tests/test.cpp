@@ -41,6 +41,7 @@ int main(int argc, char const *argv[])
             exit(EXIT_FAILURE);
         }
     }
+    std::cout << "\n" << chacha20 << std::endl;
     std::cout << "\nSuccess!" << std::endl;
     return 0;
 }
