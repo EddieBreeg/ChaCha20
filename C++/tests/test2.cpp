@@ -3,6 +3,9 @@
 
 #define OUT_FILE argc<4? "output.out": argv[3]
 
+/* encrypts the file passed as a first argument with the key from the file 
+*  passed as a second argument 
+*/
 int main(int argc, char const *argv[])
 {
     FILE* keyFile = fopen(argv[2], "rb");
