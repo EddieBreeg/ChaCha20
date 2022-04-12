@@ -1,8 +1,4 @@
-*.out
-*.exe
-*.txt
-*.mp4
-*.wav
-
-.vscode
-*/bin/
+build/
+bin/
+lib/
+.vscode/
