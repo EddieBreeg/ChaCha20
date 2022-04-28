@@ -24,6 +24,7 @@ SOFTWARE.
 
 #include "chacha20.hpp"
 #include "chacha20_common.h"
+#include <random>
 
 void chacha20::set_nonce(void *nonce){
     _state[13] = ((uint32_t*)nonce)[0];
@@ -32,6 +33,15 @@ void chacha20::set_nonce(void *nonce){
     lendian32(_state[13]);
     lendian32(_state[14]);
     lendian32(_state[15]);
+}
+chacha20::chacha20(){
+    _state[0] = 0x61707865;
+    _state[1] = 0x3320646e;
+    _state[2] = 0x79622d32;
+    _state[3] = 0x6b206574;
+    std::random_device rd; // non deterministic random source
+    for(int i=4; i<16; ++i) _state[i] = rd();
+    _state[12] = 0;
 }
 chacha20::chacha20(void *key, void* nonce, uint32_t counter)
 {
@@ -71,14 +81,14 @@ void chacha20::operator()(void* block, uint32_t counter){
     this->operator()(block);
 }
 void chacha20::encrypt(const void* data, uintmax_t len, void* out){
-    uint8_t stream[chacha20::blockSize];
+    uint8_t stream[chacha20::blockSize()];
     int r = len & 63;
     uintmax_t n = len - r;
     // encrypt whole blocks
-    for (uintmax_t i = 0; i < n; i+=chacha20::blockSize)
+    for (uintmax_t i = 0; i < n; i+=chacha20::blockSize())
     {
         this->operator()(stream);
-        for (int j = 0; j < chacha20::blockSize; j++)
+        for (int j = 0; j < chacha20::blockSize(); j++)
             ((uint8_t*)out)[i+j] = ((uint8_t*)data)[i+j] ^ stream[j];        
     }
     // take care of the remaining bytes, if any

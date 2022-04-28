@@ -25,14 +25,17 @@ SOFTWARE.
 
 #include <inttypes.h>
 
+#define CHACHA20_BLOCKSIZE  64
+
 // opaque struct representing the internal state
 // for ChaCha20
 class chacha20
 {
-public: static constexpr unsigned blockSize = 64;
 private:
-    uint32_t _state[blockSize];
+    uint32_t _state[CHACHA20_BLOCKSIZE];
 public:
+    // default constructor -> should only be used when using chacha20 as a CPRNG
+    chacha20();
     // constructs the ChaCha20 state from a key, a nonce and an inital counter
     chacha20(void *key, void *nonce, uint32_t counter = 0);
     chacha20(const chacha20&) = delete;
@@ -48,5 +51,6 @@ public:
     // getter/setter for the internal counter
     uint32_t counter() const;
     void counter(uint32_t c);
+    static inline constexpr unsigned blockSize() { return CHACHA20_BLOCKSIZE; };
 };
 
