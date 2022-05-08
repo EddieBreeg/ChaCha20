@@ -76,12 +76,12 @@ int main(int argc, char const *argv[])
         24, 25, 26, 27, 28, 29, 30, 31
     };
     chacha20 s(key, nonce);
-    uint8_t block[chacha20::blockSize];
+    uint8_t block[chacha20::blockSize()];
     time_t start = time(NULL);
     size_t n;
     time_t duration = argc<2? 3:atoi(argv[1]);
     printf("Starting for %lus\n", duration);
-    for (n=0; (time(NULL)-start) < duration; n+=chacha20::blockSize)
+    for (n=0; (time(NULL)-start) < duration; n+=chacha20::blockSize())
         s(block);
     struct size S = makeSizeSuffix(n);
     printf("Generated %lu bytes (%f %s) in %lus\n", n, S.val,S.suffix, duration);

@@ -47,6 +47,8 @@ void chacha20_block(chacha20_state *state, void* block);
 // stores the result in the output buffer
 void chacha20_encrypt(chacha20_state* state, const void* data, uintmax_t len, void *output);
 
+void chacha20_set_key(chacha20_state* chacha, const void *key);
+void chacha20_set_nonce(chacha20_state *chacha, const void* nonce);
 void chacha20_set_counter(chacha20_state* state, uint32_t c);
 uint32_t chacha20_get_counter(chacha20_state* state);
 

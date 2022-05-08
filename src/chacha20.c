@@ -38,19 +38,18 @@ chacha20_state* chacha20_init(const void* key, const void* nonce, uint32_t count
     state->s[1] = 0x3320646e;
     state->s[2] = 0x79622d32;
     state->s[3] = 0x6b206574;
-    for (int i = 0; i < 8; i++)
-    {
-        state->s[4+i] = ((uint32_t*)key)[i];
-        lendian32(state->s[4+i]);
-    }
+    chacha20_set_key(state, key);
+    chacha20_set_nonce(state, nonce);
     state->s[12] = counter;
-    state->s[13] = ((uint32_t*)nonce)[0];
-    state->s[14] = ((uint32_t*)nonce)[1];
-    state->s[15] = ((uint32_t*)nonce)[2];
-    lendian32(state->s[13]);
-    lendian32(state->s[14]);
-    lendian32(state->s[15]);
     return state;
+}
+void chacha20_set_key(chacha20_state* chacha, const void *key){
+    for (int i = 0; i < 32; i++)
+        ((uint8_t*)chacha->s)[16+i] = ((uint8_t*)key)[i];
+}
+void chacha20_set_nonce(chacha20_state *chacha, const void* nonce){
+    for (int i = 0; i < 12; i++)
+        ((uint8_t*)chacha->s)[52+i] = ((uint8_t*)nonce)[i];
 }
 void chacha20_block(chacha20_state *s, void* block){
     uint32_t *w = (uint32_t*)block;

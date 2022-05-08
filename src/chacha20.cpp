@@ -26,13 +26,13 @@ SOFTWARE.
 #include "chacha20_common.h"
 #include <random>
 
+void chacha20::set_key(const void *key){
+    for (int i = 0; i < 32; i++)
+        ((uint8_t*)_state)[16+i] = ((uint8_t*)key)[i];
+}
 void chacha20::set_nonce(void *nonce){
-    _state[13] = ((uint32_t*)nonce)[0];
-    _state[14] = ((uint32_t*)nonce)[1];
-    _state[15] = ((uint32_t*)nonce)[2];
-    lendian32(_state[13]);
-    lendian32(_state[14]);
-    lendian32(_state[15]);
+    for (int i = 0; i < 12; i++)
+        ((uint8_t*)_state)[52+i] = ((uint8_t*)nonce)[i];
 }
 chacha20::chacha20(){
     _state[0] = 0x61707865;
@@ -49,10 +49,7 @@ chacha20::chacha20(void *key, void* nonce, uint32_t counter)
     _state[1] = 0x3320646e;
     _state[2] = 0x79622d32;
     _state[3] = 0x6b206574;
-    for (int i = 0; i < 8; i++){
-        _state[4+i] = ((uint32_t*)key)[i];
-        lendian32(_state[4+1]);
-    }
+    set_key(key);
     _state[12] = counter;
     set_nonce(nonce);
 }

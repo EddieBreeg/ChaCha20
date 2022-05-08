@@ -32,7 +32,7 @@ SOFTWARE.
 class chacha20
 {
 private:
-    uint32_t _state[CHACHA20_BLOCKSIZE];
+    uint32_t _state[CHACHA20_BLOCKSIZE] = {0};
 public:
     // default constructor -> should only be used when using chacha20 as a CPRNG
     chacha20();
@@ -40,6 +40,7 @@ public:
     chacha20(void *key, void *nonce, uint32_t counter = 0);
     chacha20(const chacha20&) = delete;
     void set_nonce(void *nonce);
+    void set_key(const void *k);
     // utility method to encrypt the input data
     // stores the result in the output buffer
     void encrypt(const void* data, uintmax_t len, void* out);
